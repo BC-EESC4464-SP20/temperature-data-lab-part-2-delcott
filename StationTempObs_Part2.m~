@@ -20,10 +20,10 @@ p_recent=NaN(length(sta),2);
 %using the function StationTempObs_LinearTrend
 %<--
 
-for i = sta
-   [p_all p_recent]= StationTempObs_LinearTrend(i,1960);
-   p_all(i)=P_all(i)
-   
+for i = 1
+   [P_all,P_recent]= StationTempObs_LinearTrend(sta(i),RecentYear);
+   p_all(i,)=P_all;
+   p_recent(i)=P_recent;
 end
 
 

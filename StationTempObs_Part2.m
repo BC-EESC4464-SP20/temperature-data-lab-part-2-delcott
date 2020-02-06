@@ -20,13 +20,9 @@ p_recent=NaN(length(sta),2);
 %using the function StationTempObs_LinearTrend
 %<--
 
-for i = 1:18
-    station_number(i)=sta(i);
-   [P_all,P_recent]= StationTempObs_LinearTrend(station_number,RecentYear);
-   p_all(i)=P_all(i);
-   p_recent(i)=P_recent(i);
+for i = 1:17
+   [p_all(i,:), p_recent(i,:)]= StationTempObs_LinearTrend(sta(i),RecentYear);
 end
-
 
 
 %% 3a. Plot a global map of station locations
@@ -46,9 +42,9 @@ title('Locations of stations with observational temperature data')
 figure(2)
 worldmap('World')
 load coastlines
-scatterm(coastlat,coastlon)
-scatterm(lat,lon,'m.','markersize',15)
-title('Locations of stations with observational temperature data')
+plotm(coastlat,coastlon)
+scatterm(lat,lon,100,p_recent(:,1),'filled')
+title('Locations of stations with observational temperature change')
 
 %% Extension option: again using scatterm, plot the difference between the
 %local rate of temperature change (plotted above) and the global mean rate
