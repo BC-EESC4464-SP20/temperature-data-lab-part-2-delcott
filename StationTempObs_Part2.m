@@ -66,20 +66,37 @@ title('Locations of stations with observational temperature change')
 % below
 %<--
 
+baseline_model=[baselinemean baselinestd];
 % Write a for loop that will use the function StationModelProjections to
 % extract from the model projections for each station:
 % 1) the mean and standard deviation of the baseline period
 % (2006-2025) temperatures, 2) the annual mean temperature anomaly, and 3)
 % the slope and y-intercept of the linear trend over the 21st century
 %<--
+for i=1:18
+    [baseline_model(i,:), P(i,:), anomaly2(:,i)]=StationModelProjections(sta(i));
+end
 
 %% 5. Plot a global map of the rate of temperature change projected at each station over the 21st century
 %<--
+figure(3)
+worldmap('World')
+load coastlines
+plotm(coastlat,coastlon)
+scatterm(lat,lon,100,P(:,1),'filled')
+title('Locations of stations with projected rate of temperature change')
 
 %% 6a. Plot a global map of the interannual variability in annual mean temperature at each station
 %as determined by the baseline standard deviation of the temperatures from
 %2005 to 2025
 %<--
+
+figure(4)
+worldmap('World')
+load coastlines
+plotm(coastlat,coastlon)
+scatterm(lat,lon,100,baseline_model(:,2),'filled')
+title('Locations of stations with interannual variability in annual mean temperature')
 
 %% 6b-c. Calculate the time of emergence of the long-term change in temperature from local variability
 %There are many ways to make this calcuation, but here we will compare the
